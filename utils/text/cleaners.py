@@ -86,6 +86,7 @@ def english_cleaners(text):
 
 def to_phonemes(text):
     text = text.replace('-', '—')
+
     phonemes = phonemize(text,
                          language=hp.language,
                          backend='espeak',

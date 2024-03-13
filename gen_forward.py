@@ -16,6 +16,7 @@ if __name__ == '__main__':
     # Parse Arguments
     parser = argparse.ArgumentParser(description='TTS Generator')
     parser.add_argument('--input_text', '-i', type=str, help='[string] Type in something here and TTS will generate it!')
+    parser.add_argument('--outpath', type=str, help='[string/path] where should the generated file go?')
     parser.add_argument('--tts_weights', type=str, help='[string/path] Load in different FastSpeech weights')
     parser.add_argument('--save_attention', '-a', dest='save_attn', action='store_true', help='Save Attention Plots')
     parser.add_argument('--force_cpu', '-c', action='store_true', help='Forces CPU-only training, even when in CUDA capable environment')
@@ -65,6 +66,8 @@ if __name__ == '__main__':
     input_text = args.input_text
     tts_weights = args.tts_weights
     save_attn = args.save_attn
+    save_path = args.outpath
+    # print(f"the save_path is {save_path}")
 
     paths = Paths(hp.data_path, hp.voc_model_id, hp.tts_model_id)
 
@@ -152,10 +155,10 @@ if __name__ == '__main__':
         else:
             v_type = 'wavernn_unbatched'
 
-        if input_text:
-            save_path = '/content/output/' + f'{input_text[:40]}.wav'
-        else:
-            save_path = paths.forward_output/f'{i}_{v_type}_{tts_k}ko.wav'
+        # if input_text:
+        #     save_path = 'output/' + f'{input_text[:40]}.wav'
+        # else:
+        #     save_path = paths.forward_output/f'{i}_{v_type}_{tts_k}ko.wav'
 
         if args.vocoder == 'wavernn':
             m = torch.tensor(m).unsqueeze(0)

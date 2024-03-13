@@ -4,6 +4,7 @@ import numpy as np
 import librosa
 from utils import hparams as hp
 from scipy.signal import lfilter
+import soundfile as sf
 
 
 def label_2_float(x, bits):
@@ -21,7 +22,12 @@ def load_wav(path):
 
 
 def save_wav(x, path):
-    librosa.output.write_wav(path, x.astype(np.float32), sr=hp.sample_rate)
+    # librosa.output.write_wav(path, x.astype(np.float32), sr=hp.sample_rate)
+    path = path[:-4]
+    # print(f"the path name is: {path}")
+    path = path + ".mp3"
+    # print(f"the modified path name is: {path}")
+    sf.write(path, x.astype(np.float32), hp.sample_rate )
 
 
 def split_signal(x):
